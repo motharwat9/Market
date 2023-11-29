@@ -1,0 +1,5 @@
+<label for="{{label}}" class="mb-2">{{label}}</label>
+<select id="{{label}}" class="form-select" #option (change)="detectChanges(option.value)" >
+<option value="All" selected>All</option>
+<option  [value]="option"  *ngFor="let option of options">{{option}}</option>
+</select>

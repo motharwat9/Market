@@ -1,0 +1,48 @@
+<div class="table-responsive border-info border">
+  <div class="d-flex align-items-center justify-content-between p-4">
+    <div>
+      <h1 class="text-info ">Shopping cart</h1>
+      <p>You have <span class="text-info">{{shoppingCart.length}}</span>item in your cart</p>
+    </div>
+    <div>
+      <button type="button" name="" id="" class="btn btn-outline-info " (click)="clearAllProduct()">clear shopping cart</button>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+        <th scope="col">Quantity</th>
+        <th scope="col"></th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="dataLocalStorage , else noData">
+        <tr *ngFor="let item of shoppingCart ;let i=index ">
+          <td><img src="{{item.item.image}}" class="border rounded-circle" style="width:60px; height:60px" alt=""></td>
+          <td>{{item.item.title}}</td>
+          <td>{{item.item.price |currency :'LE ':'code'}}</td>
+          <td><button type="button" class="btn btn-outline-info " (click)="addProduct(i)">+</button></td>
+          <td><input type="text" class="form-control" [value]="item.quantity" [(ngModel)]="item.quantity" (change)="detectchange(i)"></td>
+          <td><button type="button" class="btn btn-outline-info " (click)="minProduct(i)">-</button></td>
+          <td>{{item.item.price * item.quantity |currency :'LE ':'code'}}</td>
+          <td><button type="button" class="btn btn-outline-info" (click)="deleteProduct(i)">Delete</button></td>
+        </tr>
+      </ng-container>
+      <ng-template #noData><tr><td colspan="8" class="text-center text-warning">Not Item In Cart</td></tr></ng-template>
+
+    
+      <tr class="bg-primary">
+        <td colspan="7" class="bg-info text-light text-center">Total: {{totalPrice |currency :'LE ':'code'}}</td>
+        <td><button type="button" class="btn btn-outline-info " (click)="sendModelCart()">Oreder Now</button></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+</div>
